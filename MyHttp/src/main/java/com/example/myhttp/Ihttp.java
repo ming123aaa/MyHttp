@@ -1,9 +1,4 @@
-package com.example.ohuanghttp;
-
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+package com.example.myhttp;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +6,6 @@ import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
