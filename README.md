@@ -1,21 +1,21 @@
 # MyHttp
 
 ## Step 1. Add the JitPack repository to your build file
-
+```
 allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
-
-
+```
 ## Step 2. Add the dependency
 	dependencies {
 	        implementation 'com.github.ming123aaa:MyHttp:Tag'
 	}
   
 ## Step3.add more dependency
+```
 dependencies {
 //rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.0.6'
@@ -25,3 +25,5 @@ dependencies {
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
 }
+```
+
