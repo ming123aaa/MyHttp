@@ -12,7 +12,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class Ihttp {
-   
+
     private static Ihttp ihttp = null;
     private HttpInterface httpInterface;
     private JsonInterFace jsonInterFace;
@@ -67,6 +67,7 @@ public class Ihttp {
                             iHttpBack.error("url为空");
                         } else {
                             String s1 = httpInterface.post(s, keyMap);
+                            iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
                             }
@@ -150,6 +151,7 @@ public class Ihttp {
                             iHttpBack.error("url为空");
                         } else {
                             String s1 = httpInterface.post(s, keyMap);
+                            iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
                             }
@@ -234,6 +236,7 @@ public class Ihttp {
                             iHttpBack.error("url为空");
                         } else {
                             String s1 = httpInterface.get(s);
+                            iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
                             }
@@ -317,6 +320,7 @@ public class Ihttp {
                             iHttpBack.error("url为空");
                         } else {
                             String s1 = httpInterface.get(s);
+                            iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
                             }
@@ -376,15 +380,21 @@ public class Ihttp {
 
 
     public abstract static class iHttpBack<T> {
-        abstract void success(T ojb);
+        public abstract void success(T ojb);
 
-        abstract void error(String s);
+        public void getString(String s) {
+        }
+
+        public abstract void error(String s);
     }
 
     public abstract static class iHttpBackList<T> {
-        abstract void success(List<T> listOjb);
+        public abstract void success(List<T> listOjb);
 
-        abstract void error(String s);
+        public void getString(String s) {
+        }
+
+        public abstract void error(String s);
     }
 
     public interface HttpInterface {

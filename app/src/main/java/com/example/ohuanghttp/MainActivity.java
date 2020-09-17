@@ -14,27 +14,34 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private Button button;
     private TextView textView;
-    private String url="http://192.168.1.101:8080/anjotest/Myservlet";
-    private static String TAG="MainActivity";
+    private String url = "http://192.168.1.101:8080/anjotest/Myservlet";
+    private static String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button=findViewById(R.id.button);
-        textView=findViewById(R.id.textView);
+        button = findViewById(R.id.button);
+        textView = findViewById(R.id.textView);
 
-        HashMap<String,String> map=new HashMap<>();
-        map.put("user","tom");
-        map.put("password","123");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("user", "tom");
+        map.put("password", "123");
         //post 网络请求并解析json为对象
         Ihttp.getInstance().post(url, map, User.class, new Ihttp.iHttpBack<User>() {
+
             @Override
-            void success(User ojb) {
+            public void success(User ojb) {
                 textView.setText(ojb.toString());
             }
 
             @Override
-            void error(String s) {
+            public void getString(String s) {
+                Log.d(TAG, "getString: " + s);
+            }
+
+            @Override
+            public void error(String s) {
 
             }
         });
@@ -43,19 +50,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //网络请求json并解析为List集合
-                Ihttp.getInstance().get(url,User.class, new Ihttp.iHttpBackList<User>() {
+                Ihttp.getInstance().get(url, User.class, new Ihttp.iHttpBackList<User>() {
                     @Override
-                    void success(List<User> listOjb) {
-                        for (User user:listOjb){
-                            Log.d(TAG, "success: "+user.toString());
-                            textView.append(user.toString()+"\n");
+                    public void success(List<User> listOjb) {
+                        for (User user : listOjb) {
+                            Log.d(TAG, "success: " + user.toString());
+                            textView.append(user.toString() + "\n");
                         }
                     }
+
                     @Override
-                    void error(String s) {
-                        Log.e(TAG, "error: "+s);
+                    public void getString(String s) {
+                        Log.d(TAG, "getString: " + s);
                     }
-                } );
+
+                    @Override
+                    public void error(String s) {
+                        Log.e(TAG, "error: " + s);
+                    }
+                });
             }
         });
     }
