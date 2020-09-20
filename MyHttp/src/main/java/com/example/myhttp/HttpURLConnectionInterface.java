@@ -1,6 +1,6 @@
 package com.example.myhttp;
 
-import com.example.ohuanghttp.Ihttp;
+
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

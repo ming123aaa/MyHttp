@@ -1,6 +1,6 @@
 package com.example.myhttp;
 
-import com.example.ohuanghttp.Ihttp;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
