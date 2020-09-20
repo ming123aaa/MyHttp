@@ -2,6 +2,7 @@ package com.example.ohuanghttp;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import okhttp3.FormBody;
@@ -31,11 +32,10 @@ public class OkHttpInterface implements Ihttp.HttpInterface {
 
     private FormBody.Builder getFormBodyBuilder(HashMap<String, String> keyMap) {
         FormBody.Builder builder = new FormBody.Builder();
-        Set<String> set = keyMap.keySet();
-        for (String key : set) {
-            builder.add(key, keyMap.get(key));
+        Set<Map.Entry<String,String>> set = keyMap.entrySet();
+        for (Map.Entry<String,String> entry: set) {
+            builder.add(entry.getKey(), entry.getValue());
         }
-
         return builder;
     }
 
