@@ -9,32 +9,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GsonInterface implements Ihttp.JsonInterFace {
-   private Type type=new TypeToken<User>(){
+    private static GsonInterface gsonInterface = null;
 
-   }.getType();
-
-
-    public GsonInterface() {
+    private GsonInterface() {
 
     }
 
+    public static GsonInterface getInstance() {
+        if (gsonInterface == null) {
+            synchronized (GsonInterface.class) {
+                if (gsonInterface == null) {
+                    gsonInterface = new GsonInterface();
+                }
+            }
+        }
+        return gsonInterface;
+    }
 
 
     @Override
-    public <T> T jsonToObject(String json,Class<T> A) {
+    public <T> T jsonToObject(String json, Class<T> A) {
         Gson gson = new Gson();
-        T t= gson.fromJson(json, A);
+        T t = gson.fromJson(json, A);
         return t;
     }
 
     @Override
     public <T> List<T> jsonToObjects(String json, Class<T> A) {
-        List<T> list=new ArrayList<>();
+        List<T> list = new ArrayList<>();
         Gson gson = new Gson();
-        JsonArray jsonArray=gson.fromJson(json,JsonArray.class);
-        int a=jsonArray.size();
-        for (int i=0;i<a;i++){
-            list.add(gson.fromJson(jsonArray.get(i),A));
+        JsonArray jsonArray = gson.fromJson(json, JsonArray.class);
+        int a = jsonArray.size();
+        for (int i = 0; i < a; i++) {
+            list.add(gson.fromJson(jsonArray.get(i), A));
         }
         return list;
     }

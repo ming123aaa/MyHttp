@@ -2,6 +2,8 @@ package com.example.myhttp;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
@@ -29,6 +31,19 @@ public class Ihttp {
             }
         }
         return ihttp;
+    }
+
+    public static String mapToString(HashMap<String,String> keyMap){
+        StringBuffer stringBuffer=new StringBuffer();
+        Set<Map.Entry<String,String>> set = keyMap.entrySet();
+        for (Map.Entry<String,String> key : set) {
+            stringBuffer.append(key.getKey());
+            stringBuffer.append("=");
+            stringBuffer.append(key.getValue());
+            stringBuffer.append("&");
+        }
+        stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
+        return stringBuffer.toString();
     }
 
     /*
@@ -385,7 +400,8 @@ public class Ihttp {
         public void getString(String s) {
         }
 
-        public abstract void error(String s);
+        public void error(String s) {
+        }
     }
 
     public abstract static class iHttpBackList<T> {
@@ -394,7 +410,9 @@ public class Ihttp {
         public void getString(String s) {
         }
 
-        public abstract void error(String s);
+        public void error(String s) {
+
+        }
     }
 
     public interface HttpInterface {
