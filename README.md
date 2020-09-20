@@ -11,7 +11,7 @@ allprojects {
 ```
 ## Step 2. Add the dependency
 	dependencies {
-	        implementation 'com.github.ming123aaa:MyHttp:1.4'
+	        implementation 'com.github.ming123aaa:MyHttp:1.5'
 	}
   
 ## Step3.add more dependency
@@ -42,10 +42,15 @@ public class App extends Application {
 }
 ```
 目前支持的网络模块:
+
 OkHttpInterface.getInstance()
+
 HttpURLConnectionInterface.getInstance()
+
 目前支持的解析模块:
+
 GsonInterface.getInstance()
+
 ### 网络请求将json并解析成对象   此方法暂时不支持解析成集合
 网络返回的json为 {"id":1,"name":"tom","age":100}
 ```java
