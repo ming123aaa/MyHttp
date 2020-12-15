@@ -11,7 +11,7 @@ allprojects {
 ```
 ## Step 2. Add the dependency
 	dependencies {
-	        implementation 'com.github.ming123aaa:MyHttp:1.6'
+	        implementation 'com.github.ming123aaa:MyHttp:1.7'
 	}
   
 ## Step3.add more dependency
@@ -51,7 +51,7 @@ HttpURLConnectionInterface.getInstance()
 
 GsonInterface.getInstance()
 
-### 网络请求将json并解析成对象   此方法暂时不支持解析成集合
+### 网络请求将json并解析成对象
 网络返回的json为 {"id":1,"name":"tom","age":100}
 ```java
      HashMap<String,String> map=new HashMap<>();
@@ -59,7 +59,7 @@ GsonInterface.getInstance()
         map.put("password","123");
 	
         //post 网络请求并解析json为对象
-        Ihttp.getInstance().post(url, map, User.class, new Ihttp.iHttpBack<User>() {
+        Ihttp.getInstance().post(url, map, User.class, new CallBackObject<User>() {
             @Override
             void success(User ojb) {
                 textView.setText(ojb.toString());
@@ -72,11 +72,11 @@ GsonInterface.getInstance()
         });
 ```
 
-###  网络请求将json并解析成List集合  此方法不支持解析成对象
+###  网络请求将json并解析成List集合
 网络返回的json为[{"age":100,"id":1,"name":"tom"},{"age":10,"id":2,"name":"cat"},{"age":23,"id":3,"name":"小鸡"}]
 ```java
  //网络请求json并解析为List集合
-                Ihttp.getInstance().get(url,User.class, new Ihttp.iHttpBackList<User>() {
+                Ihttp.getInstance().get(url,User.class, new CallBackObjects<User>() {
                     @Override
                     void success(List<User> listOjb) {
                         for (User user:listOjb){
@@ -89,4 +89,19 @@ GsonInterface.getInstance()
                         Log.e(TAG, "error: "+s);
                     }
                 } );
+```
+### 网络请求String类型字符串
+```java
+ //网络请求json并解析为List集合
+   Ihttp.getInstance().get(url+"quick",  new CallBackString() {
+                     @Override
+                     public void success(String ojb) {
+                         textView.setText(ojb);
+                     }
+
+                     @Override
+                     public void error(String s) {
+
+                     }
+                 });
 ```

@@ -7,7 +7,7 @@ import com.google.gson.JsonArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GsonInterface implements Ihttp.JsonInterFace {
+public class GsonInterface implements JsonInterFace {
     private static GsonInterface gsonInterface = null;
 
     private GsonInterface() {

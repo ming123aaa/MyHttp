@@ -46,12 +46,75 @@ public class Ihttp {
         return stringBuffer.toString();
     }
 
+
+
+    public void post(String Url, final HashMap<String, String> keyMap, final CallBackString callBack){
+        if (httpInterface == null) {
+            callBack.error("httpInterface为空");
+            return;
+        }
+        Observable.just(Url)
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        Pattern pattern = Pattern
+                                .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$");
+                        if (pattern.matcher(s).matches()) {
+                            return s;
+                        } else {
+                            callBack.error("url错误");
+                            return null;
+                        }
+                    }
+                })
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+
+                        if (s == null) {
+                            callBack.error("url为空");
+                        } else {
+                            String s1 = httpInterface.post(s, keyMap);
+                            if (s1 == null) {
+                                callBack.error("请求数据为空");
+                            }
+                            return s1;
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String t) {
+                        callBack.success(t);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     /*
     post网络请求
     json解析只支持对象解析  不支持集合
      */
     public <T> void post(String Url, final HashMap<String, String> keyMap, final Class<T> tClass
-            , final iHttpBack<T> iHttpBack) {
+            , final CallBackObject<T> iHttpBack) {
         if (jsonInterFace == null) {
             iHttpBack.error("jsonInterFace为空");
             return;
@@ -135,7 +198,7 @@ public class Ihttp {
     json解析只支持集合解析 不支持单个对象
      */
     public <T> void post(String Url, final HashMap<String, String> keyMap, final Class<T> tClass
-            , final iHttpBackList<T> iHttpBack) {
+            , final CallBackObjects<T> iHttpBack) {
         if (jsonInterFace == null) {
             iHttpBack.error("jsonInterFace为空");
             return;
@@ -220,7 +283,7 @@ public class Ihttp {
     json解析只支持对象解析  不支持集合
      */
     public <T> void get(String Url, final Class<T> tClass
-            , final iHttpBack<T> iHttpBack) {
+            , final CallBackObject<T> iHttpBack) {
         if (jsonInterFace == null) {
             iHttpBack.error("jsonInterFace为空");
             return;
@@ -305,7 +368,7 @@ public class Ihttp {
     json解析只支持集合解析 不支持单个对象
      */
     public <T> void get(String Url, final Class<T> tClass
-            , final iHttpBackList<T> iHttpBack) {
+            , final CallBackObjects<T> iHttpBack) {
         if (jsonInterFace == null) {
             iHttpBack.error("jsonInterFace为空");
             return;
@@ -384,6 +447,69 @@ public class Ihttp {
     }
 
 
+
+    public void get(String Url, final CallBackString callBack){
+        if (httpInterface == null) {
+            callBack.error("httpInterface为空");
+            return;
+        }
+        Observable.just(Url)
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        Pattern pattern = Pattern
+                                .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$");
+                        if (pattern.matcher(s).matches()) {
+                            return s;
+                        } else {
+                            callBack.error("url错误");
+                            return null;
+                        }
+                    }
+                })
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+
+                        if (s == null) {
+                            callBack.error("url为空");
+                        } else {
+                            String s1 = httpInterface.get(s);
+                            if (s1 == null) {
+                                callBack.error("请求数据为空");
+                            }
+                            return s1;
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String t) {
+                        callBack.success(t);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
     public void setHttpInterface(HttpInterface httpInterface) {
         this.httpInterface = httpInterface;
     }
@@ -394,40 +520,11 @@ public class Ihttp {
     }
 
 
-    public abstract static class iHttpBack<T> {
-        public abstract void success(T ojb);
 
-        public void getString(String s) {
-        }
 
-        public void error(String s) {
-        }
-    }
 
-    public abstract static class iHttpBackList<T> {
-        public abstract void success(List<T> listOjb);
 
-        public void getString(String s) {
-        }
 
-        public void error(String s) {
 
-        }
-    }
-
-    public interface HttpInterface {
-        String post(String Url, HashMap<String, String> keyMap);
-
-        String get(String Url);
-    }
-
-    //json解析
-    public interface JsonInterFace {
-        //单个对象解析
-        <T> T jsonToObject(String json, Class<T> A);
-
-        //集合解析
-        <T> List<T> jsonToObjects(String json, Class<T> A);
-    }
 
 }

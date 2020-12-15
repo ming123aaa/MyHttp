@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HttpURLConnectionInterface implements Ihttp.HttpInterface {
+public class HttpURLConnectionInterface implements HttpInterface {
     private static HttpURLConnectionInterface httpURLConnectionInterface=null;
     private HttpURLConnectionInterface(){}
 
