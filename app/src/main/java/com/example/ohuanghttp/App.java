@@ -3,7 +3,6 @@ package com.example.ohuanghttp;
 import android.app.Application;
 
 import com.example.myhttp.GsonInterface;
-import com.example.myhttp.HttpURLConnectionInterface;
 import com.example.myhttp.Ihttp;
 
 
