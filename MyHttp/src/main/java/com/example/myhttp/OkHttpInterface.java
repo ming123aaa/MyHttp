@@ -40,7 +40,7 @@ public class OkHttpInterface implements HttpInterface {
     }
 
 
-    private String getToString(String Url) {
+    private String getToString(String Url,CallBack callBack) {
         String bodyString = null;
         Request request = new Request.Builder()
                 .url(Url)
@@ -50,6 +50,7 @@ public class OkHttpInterface implements HttpInterface {
             response = okHttpClient.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
+            callBack.error("okHttpClient:"+e.toString());
         }
         if (response != null) {
             if (response.isSuccessful()) {
@@ -57,6 +58,7 @@ public class OkHttpInterface implements HttpInterface {
                     bodyString = response.body().string();//获取数据
                 } catch (IOException e) {
                     e.printStackTrace();
+                    callBack.error("okHttpClient:"+e.toString());
                 }
             }
         }
@@ -64,7 +66,7 @@ public class OkHttpInterface implements HttpInterface {
     }
 
 
-    private String postToString(String Url, HashMap<String, String> keyMap) {
+    private String postToString(String Url, HashMap<String, String> keyMap,CallBack callBack) {
         String bodyString = null;
         FormBody formBody = null;
         if (keyMap == null) {
@@ -82,6 +84,7 @@ public class OkHttpInterface implements HttpInterface {
             response = okHttpClient.newCall(request).execute();//请求
         } catch (IOException e) {
             e.printStackTrace();
+            callBack.error("okHttpClient:"+e.toString());
         }
         if (response != null) {
             if (response.isSuccessful()) {
@@ -89,6 +92,7 @@ public class OkHttpInterface implements HttpInterface {
                     bodyString = response.body().string();//获取数据
                 } catch (IOException e) {
                     e.printStackTrace();
+                    callBack.error("okHttpClient:"+e.toString());
                 }
             }
         }
@@ -96,18 +100,18 @@ public class OkHttpInterface implements HttpInterface {
     }
 
     @Override
-    public String post(String Url, HashMap<String, String> keyMap) {
+    public String post(String Url, HashMap<String, String> keyMap,CallBack callBack) {
         String json = null;
         if (keyMap == null) {
-            json = postToString(Url, null);
+            json = postToString(Url, null,callBack);
         } else {
-            json = postToString(Url, keyMap);
+            json = postToString(Url, keyMap,callBack);
         }
         return json;
     }
 
     @Override
-    public String get(String Url) {
-        return getToString(Url);
+    public String get(String Url,CallBack callBack) {
+        return getToString(Url,callBack);
     }
 }

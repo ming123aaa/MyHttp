@@ -74,7 +74,7 @@ public class Ihttp {
                         if (s == null) {
                             callBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.post(s, keyMap);
+                            String s1 = httpInterface.post(s, keyMap,callBack);
                             if (s1 == null) {
                                 callBack.error("请求数据为空");
                             }
@@ -144,7 +144,7 @@ public class Ihttp {
                         if (s == null) {
                             iHttpBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.post(s, keyMap);
+                            String s1 = httpInterface.post(s, keyMap,iHttpBack);
                             iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
@@ -228,7 +228,7 @@ public class Ihttp {
                         if (s == null) {
                             iHttpBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.post(s, keyMap);
+                            String s1 = httpInterface.post(s, keyMap,iHttpBack);
                             iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
@@ -313,7 +313,7 @@ public class Ihttp {
                         if (s == null) {
                             iHttpBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.get(s);
+                            String s1 = httpInterface.get(s,iHttpBack);
                             iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
@@ -397,7 +397,7 @@ public class Ihttp {
                         if (s == null) {
                             iHttpBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.get(s);
+                            String s1 = httpInterface.get(s,iHttpBack);
                             iHttpBack.getString(s1);
                             if (s1 == null) {
                                 iHttpBack.error("请求数据为空");
@@ -474,7 +474,7 @@ public class Ihttp {
                         if (s == null) {
                             callBack.error("url为空");
                         } else {
-                            String s1 = httpInterface.get(s);
+                            String s1 = httpInterface.get(s,callBack);
                             if (s1 == null) {
                                 callBack.error("请求数据为空");
                             }

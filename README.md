@@ -11,7 +11,7 @@ allprojects {
 ```
 ## Step 2. Add the dependency
 	dependencies {
-	        implementation 'com.github.ming123aaa:MyHttp:1.7'
+	        implementation 'com.github.ming123aaa:MyHttp:1.8'
 	}
   
 ## Step3.add more dependency
