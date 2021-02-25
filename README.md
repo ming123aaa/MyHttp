@@ -45,7 +45,6 @@ public class App extends Application {
 
 OkHttpInterface.getInstance()
 
-HttpURLConnectionInterface.getInstance()
 
 目前支持的解析模块:
 

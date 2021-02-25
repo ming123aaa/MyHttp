@@ -33,22 +33,21 @@ public class Ihttp {
         return ihttp;
     }
 
-    public static String mapToString(HashMap<String,String> keyMap){
-        StringBuffer stringBuffer=new StringBuffer();
-        Set<Map.Entry<String,String>> set = keyMap.entrySet();
-        for (Map.Entry<String,String> key : set) {
+    public static String mapToString(HashMap<String, String> keyMap) {
+        StringBuffer stringBuffer = new StringBuffer();
+        Set<Map.Entry<String, String>> set = keyMap.entrySet();
+        for (Map.Entry<String, String> key : set) {
             stringBuffer.append(key.getKey());
             stringBuffer.append("=");
             stringBuffer.append(key.getValue());
             stringBuffer.append("&");
         }
-        stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
+        stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
         return stringBuffer.toString();
     }
 
 
-
-    public void post(String Url, final HashMap<String, String> keyMap, final CallBackString callBack){
+    public void post(String Url, final HashMap<String, String> keyMap, final CallBackString callBack) {
         if (httpInterface == null) {
             callBack.error("httpInterface为空");
             return;
@@ -71,17 +70,10 @@ public class Ihttp {
                     @Override
                     public String apply(String s) throws Exception {
 
-                        if (s == null) {
-                            callBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.post(s, keyMap,callBack);
-                            if (s1 == null) {
-                                callBack.error("请求数据为空");
-                            }
-                            return s1;
-                        }
 
-                        return null;
+                        String s1 = httpInterface.post(s, keyMap, callBack);
+                        return s1;
+
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -141,24 +133,18 @@ public class Ihttp {
                     @Override
                     public String apply(String s) throws Exception {
 
-                        if (s == null) {
-                            iHttpBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.post(s, keyMap,iHttpBack);
-                            iHttpBack.getString(s1);
-                            if (s1 == null) {
-                                iHttpBack.error("请求数据为空");
-                            }
-                            return s1;
-                        }
 
-                        return null;
+                            String s1 = httpInterface.post(s, keyMap, iHttpBack);
+                            iHttpBack.getString(s1);
+
+                            return s1;
+
                     }
                 }).map(new Function<String, T>() {
             @Override
             public T apply(String s) {
 
-                if (s == null) {
+                if (s.isEmpty()) {
                     iHttpBack.error("json数据为空无法json解析");
                 } else {
                     return jsonInterFace.jsonToObject(s, tClass);
@@ -225,24 +211,18 @@ public class Ihttp {
                     @Override
                     public String apply(String s) throws Exception {
 
-                        if (s == null) {
-                            iHttpBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.post(s, keyMap,iHttpBack);
-                            iHttpBack.getString(s1);
-                            if (s1 == null) {
-                                iHttpBack.error("请求数据为空");
-                            }
-                            return s1;
-                        }
 
-                        return null;
+                            String s1 = httpInterface.post(s, keyMap, iHttpBack);
+                            iHttpBack.getString(s1);
+
+                            return s1;
+
                     }
                 }).map(new Function<String, List<T>>() {
             @Override
             public List<T> apply(String s) {
 
-                if (s == null) {
+                if (s .isEmpty()) {
                     iHttpBack.error("json数据为空无法json解析");
                 } else {
                     return jsonInterFace.jsonToObjects(s, tClass);
@@ -310,24 +290,18 @@ public class Ihttp {
                     @Override
                     public String apply(String s) throws Exception {
 
-                        if (s == null) {
-                            iHttpBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.get(s,iHttpBack);
-                            iHttpBack.getString(s1);
-                            if (s1 == null) {
-                                iHttpBack.error("请求数据为空");
-                            }
-                            return s1;
-                        }
 
-                        return null;
+                            String s1 = httpInterface.get(s, iHttpBack);
+                            iHttpBack.getString(s1);
+
+                            return s1;
+
                     }
                 }).map(new Function<String, T>() {
             @Override
             public T apply(String s) {
 
-                if (s == null) {
+                if (s .isEmpty()) {
                     iHttpBack.error("json数据为空无法json解析");
                 } else {
                     return jsonInterFace.jsonToObject(s, tClass);
@@ -394,23 +368,18 @@ public class Ihttp {
                 map(new Function<String, String>() {
                     @Override
                     public String apply(String s) throws Exception {
-                        if (s == null) {
-                            iHttpBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.get(s,iHttpBack);
+
+                            String s1 = httpInterface.get(s, iHttpBack);
                             iHttpBack.getString(s1);
-                            if (s1 == null) {
-                                iHttpBack.error("请求数据为空");
-                            }
+
                             return s1;
-                        }
-                        return null;
+
                     }
                 }).map(new Function<String, List<T>>() {
             @Override
             public List<T> apply(String s) {
 
-                if (s == null) {
+                if (s .isEmpty()) {
                     iHttpBack.error("json数据为空无法json解析");
                 } else {
                     return jsonInterFace.jsonToObjects(s, tClass);
@@ -447,8 +416,7 @@ public class Ihttp {
     }
 
 
-
-    public void get(String Url, final CallBackString callBack){
+    public void get(String Url, final CallBackString callBack) {
         if (httpInterface == null) {
             callBack.error("httpInterface为空");
             return;
@@ -471,17 +439,11 @@ public class Ihttp {
                     @Override
                     public String apply(String s) throws Exception {
 
-                        if (s == null) {
-                            callBack.error("url为空");
-                        } else {
-                            String s1 = httpInterface.get(s,callBack);
-                            if (s1 == null) {
-                                callBack.error("请求数据为空");
-                            }
-                            return s1;
-                        }
 
-                        return null;
+                            String s1 = httpInterface.get(s, callBack);
+
+                            return s1;
+
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -518,13 +480,6 @@ public class Ihttp {
         this.jsonInterFace = jsonInterFace;
 
     }
-
-
-
-
-
-
-
 
 
 }
