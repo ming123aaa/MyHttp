@@ -16,8 +16,8 @@ import io.reactivex.schedulers.Schedulers;
 public class Ihttp {
 
     private static Ihttp ihttp = null;
-    private HttpInterface httpInterface;
-    private JsonInterFace jsonInterFace;
+    private HttpInterface httpInterface=OkHttpInterface.getInstance();
+    private JsonInterFace jsonInterFace=GsonInterface.getInstance();
 
     private Ihttp() {
     }
